@@ -23,6 +23,6 @@ El objetivo es que **cualquier evaluador pueda levantar el proyecto fácilmente*
 ### Pasos
 
 ```bash
-git clone <URL_DEL_REPOSITORIO>
+git clone https://github.com/DiegoDefault04/PruebaEthical.git
 cd Prueba Tecnica
 docker compose up --build
