@@ -18,6 +18,8 @@ services:
       - "3000:3000"
     volumes:
       - ./ethics-frontend:/app
+      - /app/node_modules   # ← MUY IMPORTANTE
+
     environment:
       - NEXT_PUBLIC_API_URL=http://localhost:8000/api
     depends_on:

@@ -2,9 +2,13 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-COPY package.json package-lock.json* ./
+# Copiamos package.json primero
+COPY package*.json ./
+
+# Instalamos dependencias (AQUÍ estaba el problema)
 RUN npm install
 
+# Copiamos el resto del proyecto
 COPY . .
 
 EXPOSE 3000
