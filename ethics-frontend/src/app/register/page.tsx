@@ -15,7 +15,7 @@ export default function RegisterPage() {
     await fetch(`${API_URL}/auth/register/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password, phone }),
+      body: JSON.stringify({ username, password, phone, email }),
     });
 
     alert("Usuario creado");

@@ -15,13 +15,18 @@ class RegisterView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        username = request.data.get("username")
-        password = request.data.get("password")
-        email = request.data.get("email")
+        data = request.data
 
-        if not username or not password or not email:
+        username = data.get("username")
+        password = data.get("password")
+        email = data.get("email")
+        phone = data.get("phone")
+
+        print("REGISTER DATA:", data)
+
+        if not all([username, password, email, phone]):
             return Response(
-                {"error": "Usuario, contraseña y correo requeridos"},
+                {"error": "Usuario, contraseña, correo y teléfono requeridos"},
                 status=400
             )
 
@@ -31,16 +36,31 @@ class RegisterView(APIView):
                 status=400
             )
 
+        if User.objects.filter(email=email).exists():
+            return Response(
+                {"error": "El correo ya está registrado"},
+                status=400
+            )
+
+        if User.objects.filter(phone=phone).exists():
+            return Response(
+                {"error": "El teléfono ya está registrado"},
+                status=400
+            )
+
         User.objects.create_user(
             username=username,
             email=email,
-            password=password
+            password=password,
+            phone=phone
         )
 
         return Response(
             {"message": "Usuario registrado correctamente"},
             status=201
         )
+
+
 
 class LoginStepOneView(APIView):
     authentication_classes = []
